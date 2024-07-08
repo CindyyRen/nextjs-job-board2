@@ -7,21 +7,26 @@ export default async function Home() {
     orderBy: { createdAt: "desc" },
   });
   return (
-    <main className="m-auto my-10 max-w-5xl space-y-10 px-3">
-      <div className="space-y-5 text-center">
+    <main className="m-auto my-10 max-w-full px-4 sm:max-w-6xl sm:px-3 lg:px-4">
+      <div className="mb-10 space-y-5 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Developer jobs
+          Academic jobs
         </h1>
         <p className="text-muted-foreground">Find your dream job.</p>
+      </div>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+        <section className="col-span-1 md:col-span-2">
+          <div className="space-y-4">
+            {jobs.map((job) => (
+              <JobListItem job={job} key={job.id} />
+            ))}
+          </div>
+        </section>
+        <div className="hidden md:col-span-3 md:block md:rounded-lg md:border md:p-5 md:hover:bg-muted/20">
+          {/* Content for the remaining 3/5 of the screen on larger screens */}
+          00000000000
         </div>
-        <section>
-
-        <div className="space-y-4">
-          {jobs.map((job) => (
-            <JobListItem job={job} key={job.id} />
-          ))}
-        </div>
-      </section>
-      </main>
-    );
-  }
+      </div>
+    </main>
+  );
+}

@@ -23,16 +23,19 @@ export default function JobListItem({
 }: JobListItemProps) {
   return (
     <article className="flex gap-3 rounded-lg border p-5 hover:bg-muted/60">
-      <Image
-        src={companyLogoUrl || companyLogoPlaceholder}
-        alt={`${companyName} logo`}
-        width={100}
-        height={100}
-        className="self-center rounded-lg"
-      />
+      <div className="hidden md:flex md:flex-col md:gap-3">
+        <Image
+          src={companyLogoUrl || companyLogoPlaceholder}
+          alt={`${companyName} logo`}
+          width={60}
+          height={60}
+          className="self-center rounded-lg "
+        />
+        <Badge>{type}</Badge>
+      </div>
       <div className="flex-grow space-y-3">
         <div>
-          <h2 className="text-xl font-medium">{title}</h2>
+          <h2 className=" font-medium">{title}</h2>
           <p className="text-muted-foreground">{companyName}</p>
         </div>
         <div className="text-muted-foreground">
@@ -40,11 +43,12 @@ export default function JobListItem({
             <Briefcase size={16} className="shrink-0" />
             {type}
           </p>
+
           <p className="flex items-center gap-1.5">
             <MapPin size={16} className="shrink-0" />
             {locationType}
           </p>
-          <p className="flex items-center gap-1.5">
+          <p className="flex items-center gap-1.5 text-sm">
             <Globe2 size={16} className="shrink-0" />
             {location || "Worldwide"}
           </p>
@@ -52,19 +56,19 @@ export default function JobListItem({
             <Banknote size={16} className="shrink-0" />
             {formatMoney(salary)}
           </p>
-          <p className="flex items-center gap-1.5 sm:hidden">
+          <p className="flex items-center gap-1.5 text-sm">
             <Clock size={16} className="shrink-0" />
             {relativeDate(createdAt)}
           </p>
         </div>
       </div>
-      <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">
+      {/* <div className="hidden shrink-0 flex-col items-end justify-between sm:flex">
         <Badge>{type}</Badge>
         <span className="flex items-center gap-1.5 text-muted-foreground">
           <Clock size={16} />
           {relativeDate(createdAt)}
         </span>
-      </div>
+      </div> */}
     </article>
   );
 }
