@@ -1,4 +1,5 @@
 import JobListItem from "@/components/JobListItem";
+import JobFilterSidebar from "@/components/JobFilterSidebar";
 import prisma from "@/lib/prisma";
 
 export default async function Home() {
@@ -14,6 +15,7 @@ export default async function Home() {
         </h1>
         <p className="text-muted-foreground">Find your dream job.</p>
       </div>
+      <JobFilterSidebar />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
         <section className="col-span-1 md:col-span-2">
           <div className="space-y-4">
