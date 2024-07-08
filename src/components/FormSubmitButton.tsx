@@ -10,8 +10,13 @@ export default function FormSubmitButton(
   const { pending } = useFormStatus();
 
   return (
-    <Button {...props} type="submit" disabled={props.disabled || pending}>
-      <span className="flex min-w-[120px] items-center justify-center gap-1">
+    <Button
+      {...props}
+      type="submit"
+      disabled={props.disabled || pending}
+      className="bg-primary"
+    >
+      <span className="flex min-w-[120px] items-center justify-center gap-1 text-base">
         {pending && <Loader2 size={16} className="animate-spin" />}
         {props.children}
       </span>
