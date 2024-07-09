@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 import { draftToMarkdown } from "markdown-draft-js";
 import { useForm } from "react-hook-form";
+import { createJobPosting } from "./actions";
 
 export default function NewJobForm() {
   const form = useForm<CreateJobValues>({
@@ -38,20 +39,35 @@ export default function NewJobForm() {
   } = form;
 
   async function onSubmit(values: CreateJobValues) {
-    alert(JSON.stringify(values, null, 2));
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (value) {
+        formData.append(key, value);
+      }
+    });
+
+    try {
+      await createJobPosting(formData);
+    } catch (error) {
+      alert("Something went wrong, please try again.");
+    }
   }
 
   return (
     <main className="m-auto my-10 max-w-3xl space-y-5">
       <div className="space-y-5 text-center">
-        <H1>Find your perfect employee</H1>
+        <H1 className="text-2xl">Post a job</H1>
+        {/* <H1 className="text-lg">
+          Get your job posting seen by thousands of job seekers.
+        </H1> */}
         <p className="text-muted-foreground">
           Get your job posting seen by thousands of job seekers.
         </p>
       </div>
 
       <div className="space-y-2 rounded-lg border p-4">
-        <h2 className="text-center text-xl font-semibold">Job details</h2>
+        {/* <h2 className="text-center text-xl font-semibold">Job details</h2> */}
         <Form {...form}>
           <form
             className="space-y-4"

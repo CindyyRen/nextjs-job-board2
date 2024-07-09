@@ -13,7 +13,7 @@ export default function LoadingButton({
 }: LoadingButtonProps) {
   return (
     <Button {...props} disabled={props.disabled || loading}>
-      <span className="flex items-center justify-center gap-1">
+      <span className="flex min-w-[120px]  items-center justify-center gap-1">
         {loading && <Loader2 size={16} className="animate-spin" />}
         {children}
       </span>

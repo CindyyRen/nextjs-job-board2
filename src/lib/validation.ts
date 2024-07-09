@@ -6,13 +6,13 @@ const numericRequiredString = requiredString.regex(/^\d+$/, "Must be a number");
 
 const companyLogoSchema = z
   .custom<File | undefined>()
-  .refine(
+  .refine(//下一行表示公司logo可以不传，如果传确保是个image文件
     (file) => !file || (file instanceof File && file.type.startsWith("image/")),
-    "Must be an image file",
+    "Must be an image file",//错误提示
   )
   .refine((file) => {
-    return !file || file.size < 1024 * 1024 * 2;
-  }, "File must be less than 2MB");
+    return !file || file.size < 1024 * 1024 * 2;//检查文件大小
+  }, "File must be less than 2MB");//错误提示
 
 const applicationSchema = z
   .object({
@@ -27,12 +27,12 @@ const applicationSchema = z
 const locationSchema = z
   .object({
     locationType: requiredString.refine(
-      (value) => locationTypes.includes(value),
+      (value) => locationTypes.includes(value),//判断value是否在locationTypes数组
       "Invalid location type",
     ),
     location: z.string().max(100).optional(),
   })
-  .refine(
+  .refine(//错误处理
     (data) =>
       !data.locationType || data.locationType === "Remote" || data.location,
     {
