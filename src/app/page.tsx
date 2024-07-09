@@ -17,10 +17,10 @@ function getTitle({ q, type, location, remote }: JobFilterValues) {
   const titlePrefix = q
     ? `${q} jobs`
     : type
-      ? `${type} developer jobs`
+      ? `${type} academic jobs`
       : remote
-        ? "Remote developer jobs"
-        : "All developer jobs";
+        ? "Remote academic jobs"
+        : "All academic jobs";
 
   const titleSuffix = location ? ` in ${location}` : "";
 
@@ -36,7 +36,7 @@ export function generateMetadata({
       type,
       location,
       remote: remote === "true",
-    })} | Flow Jobs`,
+    })} | Academic Jobs`,
   };
 }
 
