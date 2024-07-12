@@ -45,7 +45,7 @@ export default async function JobFilterSidebar({
     )) as string[];
 
   return (
-    <aside className="sticky top-0 mb-0 h-fit space-y-0 rounded-lg border bg-background bg-blue-50 p-4">
+    <aside className="sticky top-[60px] z-20 mb-0 h-fit space-y-0 rounded-lg border bg-background bg-blue-50 p-4">
       <form
         action={filterJobs}
         key={JSON.stringify(defaultValues)}
