@@ -6,7 +6,6 @@ import FormSubmitButton from "./FormSubmitButton";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import Select from "./ui/select";
-import { Button } from "./ui/button";
 
 async function filterJobs(formData: FormData) {
   "use server";
@@ -14,8 +13,6 @@ async function filterJobs(formData: FormData) {
   const values = Object.fromEntries(formData.entries());
 
   const { q, type, location, remote } = jobFilterSchema.parse(values);
-  console.log("location:", location);
-  console.log("location:", { ...(location && { location }) });
 
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
@@ -45,33 +42,23 @@ export default async function JobFilterSidebar({
     )) as string[];
 
   return (
-    <aside className="hidden md:block sticky top-[60px] z-20 mb-0 h-fit space-y-0 rounded-lg border bg-background bg-blue-50 p-4">
-      <form
-        action={filterJobs}
-        key={JSON.stringify(defaultValues)}
-        className="w-full"
-      >
-        <div className="flex flex-col space-y-4 md:flex-row md:items-end md:space-x-4 md:space-y-0">
-          <div className="flex-grow">
-            <Label htmlFor="q" className="mb-2 block">
-              Search
-            </Label>
+    <aside className="sticky top-0 h-fit rounded-lg border bg-background p-4 md:w-[260px]">
+      <form action={filterJobs} key={JSON.stringify(defaultValues)}>
+        <div className="space-y-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="q">Search</Label>
             <Input
               id="q"
               name="q"
               placeholder="Title, company, etc."
-              className="w-full"
               defaultValue={defaultValues.q}
             />
           </div>
-          <div className="w-full md:w-40">
-            <Label htmlFor="type" className="mb-2 block">
-              Type
-            </Label>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="type">Type</Label>
             <Select
               id="type"
               name="type"
-              className="w-full"
               defaultValue={defaultValues.type || ""}
             >
               <option value="">All types</option>
@@ -82,14 +69,11 @@ export default async function JobFilterSidebar({
               ))}
             </Select>
           </div>
-          <div className="w-full md:w-40">
-            <Label htmlFor="location" className="mb-2 block">
-              Location
-            </Label>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="location">Location</Label>
             <Select
               id="location"
               name="location"
-              className="w-full"
               defaultValue={defaultValues.location || ""}
             >
               <option value="">All locations</option>
@@ -100,17 +84,17 @@ export default async function JobFilterSidebar({
               ))}
             </Select>
           </div>
-          <div className="flex items-center md:h-10">
+          <div className="flex items-center gap-2">
             <input
               id="remote"
               name="remote"
               type="checkbox"
-              className="mr-2 scale-125 accent-black"
+              className="scale-125 accent-black"
               defaultChecked={defaultValues.remote}
             />
             <Label htmlFor="remote">Remote jobs</Label>
           </div>
-          <FormSubmitButton>Filter Jobs</FormSubmitButton>
+          <FormSubmitButton className="w-full">Filter jobs</FormSubmitButton>
         </div>
       </form>
     </aside>

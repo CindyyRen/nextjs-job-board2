@@ -2,6 +2,7 @@ import logo from "@/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import SigninButton from "./SigninButton";
 
 export default function Navbar() {
   return (
@@ -13,14 +14,20 @@ export default function Navbar() {
             Academic Jobs
           </span>
         </Link>
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
-          className="text-sm"
-        >
-          <Link href="/jobs/new">Post a job</Link>
-        </Button>
+        <div className="flex">
+          <SigninButton />
+          <div>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="ml-8 text-sm "
+            >
+              <Link href="/jobs/new">Post a job</Link>
+            </Button>
+          </div>
+
+        </div>
       </nav>
     </header>
   );

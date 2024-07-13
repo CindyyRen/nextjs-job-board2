@@ -61,7 +61,7 @@ export default function NewJobForm() {
         {/* <H1 className="text-lg">
           Get your job posting seen by thousands of job seekers.
         </H1> */}
-        <p className="text-muted-foreground">
+        <p className="hidden text-muted-foreground md:block">
           Get your job posting seen by thousands of job seekers.
         </p>
       </div>

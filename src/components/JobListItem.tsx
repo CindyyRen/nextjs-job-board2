@@ -55,7 +55,7 @@ export default function JobListItem({
       </div>
       <div className="flex-grow space-y-3">
         <div>
-          <h2 className="font-medium">{title}</h2>
+          {title && <h2 className="font-medium">{title}</h2>}
           <p className="text-muted-foreground">{companyName}</p>
         </div>
         <div className="text-muted-foreground">

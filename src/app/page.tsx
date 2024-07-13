@@ -8,6 +8,16 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { Job } from "@prisma/client";
 import JobPageRight from "@/components/JobPageRight";
+import {
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+import { Sheet } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import JobFilterSidebarV from "@/components/JobFilterSidebarV";
 
 interface PageProps {
   searchParams: {
@@ -92,9 +102,32 @@ export default async function Home({
         <H1>{getTitle(filterValues)}</H1>
         <p className="text-muted-foreground">Find your dream job.</p>
       </div> */}
+
       <JobFilterSidebar defaultValues={filterValues} />
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
-        <section className="scrollbar-thin !scrollbar-thumb-gray-200 col-span-1 max-h-screen overflow-y-auto md:col-span-2">
+      {/* <JobFilterSidebarV defaultValues={filterValues} /> */}
+      <Sheet>
+        <SheetTrigger>
+          <Input
+            type="text"
+            placeholder="Search"
+            className="sticky mx-auto mt-2 w-full rounded-full px-4 md:hidden"
+          />
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Job Filter</SheetTitle>
+          </SheetHeader>
+          <JobFilterSidebarV defaultValues={filterValues} />
+        </SheetContent>
+      </Sheet>
+
+      <div className="mt-0 grid grid-cols-1 gap-1 md:grid-cols-5">
+        {/* <section className="col-span-1 max-h-screen overflow-y-auto scrollbar-thin !scrollbar-thumb-gray-200 md:col-span-2"> */}
+        <section
+          className="col-span-1 max-h-screen overflow-y-auto scrollbar-none
+                    md:col-span-2
+                    md:scrollbar-thin md:scrollbar-thumb-gray-200"
+        >
           <JobResults jobs={jobs} />
         </section>
         <div className=" md:col-span-3 md:block md:rounded-lg md:border md:p-5 md:hover:bg-muted/20">
