@@ -15,7 +15,7 @@ export default async function AdminPage() {
       <H1 className="text-center">Admin Dashboard</H1>
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-bold">Unapproved jobs:</h2>
-        {session?.user?.userRole === "JOBSEEKER" &&
+        {session?.user?.userRole === "JOBSEEKER" ? (
           unapprovedJobs.map((job) => (
             <Link
               key={job.id}
@@ -24,7 +24,11 @@ export default async function AdminPage() {
             >
               <JobListItem job={job} />
             </Link>
-          ))}
+          ))
+        ) : (
+          <p>you are unauthorized!</p>
+        )}
+
         {unapprovedJobs.length === 0 && (
           <p className="text-muted-foreground">No unapproved jobs</p>
         )}

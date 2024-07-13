@@ -1,10 +1,10 @@
 "use client";
-import companyLogoPlaceholder from "@/assets/company-logo-placeholder.png";
+import placeholder from "@/assets/placeholder.png";
 import { formatMoney, relativeDate } from "@/lib/utils";
 import { Job } from "@prisma/client";
 import { Banknote, Briefcase, Clock, Globe2, MapPin } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Badge from "./Badge";
 import { useRouter } from "next/navigation";
@@ -34,6 +34,7 @@ export default function JobListItem({
   const currentSlug = searchParams.get("slug");
 
   const isActive = currentSlug === slug;
+  // console.log("companyLogoUrl", companyLogoUrl);
   const jobContent = (
     <article
       className={clsx(
@@ -42,15 +43,16 @@ export default function JobListItem({
       )}
     >
       <div className="hidden md:flex md:flex-col md:gap-3">
-        {companyLogoUrl && (
+        {
           <Image
-            src={companyLogoUrl || companyLogoPlaceholder}
+            // src={companyLogoUrl || placeholder}
+            src={placeholder}
             alt={`${companyName} logo`}
             width={60}
             height={60}
             className="self-center rounded-lg"
           />
-        )}
+        }
         <Badge>{type}</Badge>
       </div>
       <div className="flex-grow space-y-3">
