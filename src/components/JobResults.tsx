@@ -1,8 +1,8 @@
-import prisma from "@/lib/prisma";
-import { JobFilterValues } from "@/lib/validation";
+"use client";
 import { Job } from "@prisma/client";
 interface JobListItemProps {
   jobs: Job[];
+  setCurPage: (slug: string) => void;
 }
 
 import JobListItem from "./JobListItem";
@@ -11,26 +11,21 @@ import JobListItem from "./JobListItem";
 //   filterValues: JobFilterValues;
 // }
 
-export default async function JobResults({jobs}:JobListItemProps) {
+export default function JobResults({
+  jobs,
+  setCurPage,
+}: JobListItemProps) {
   return (
     <div className="grow space-y-4">
-       {jobs.map((job) => (
+      {jobs.map((job) => (
         // <Link key={job.id} href={`/jobs/${job.slug}`} className="block">
-        <JobListItem job={job} key={job.id} />
-        // </Link>
-        // <Link
-        //   key={job.id}
-        //   href={`${pathname}/${job.slug}?${newSearchParams.toString()}`}
-        //   className="block"
-        // >
-        // <JobListItem job={job} />
-        // </Link>
+        <JobListItem job={job} key={job.id} setCurPage={setCurPage} />
       ))}
       {jobs.length === 0 && (
         <p className="m-auto text-center">
           No jobs found. Try adjusting your search filters.
         </p>
-      )} 
+      )}
     </div>
   );
 }

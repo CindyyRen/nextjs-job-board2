@@ -4,7 +4,6 @@ import { Job } from "@prisma/client";
 import { Banknote, Briefcase, Globe2, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 import dynamic from "next/dynamic";
 
@@ -12,18 +11,12 @@ import dynamic from "next/dynamic";
 const Markdown = dynamic(() => import("./Markdown"), { ssr: false });
 
 interface JobPageProps {
-  jobs: Job[];
+  job: Job;
 }
 
-export default function JobPageRight({ jobs }: JobPageProps) {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug");
+export default function JobPageRight({ job }: JobPageProps) {
 
-  let job: Job | undefined = jobs.find((job) => job.slug === slug);
-  if (!job) {
-    if (jobs[0]) {
-      job = jobs[0];
-    } else return <div>Job not found</div>;
+  if (!job) {return <div>Job not found</div>;
   }
 
   const {
@@ -60,8 +53,8 @@ export default function JobPageRight({ jobs }: JobPageProps) {
         <div>
           <div>
             {title && (
-              <Link href={`/jobs/${slug}`} className="block">
-                <h1 className="text-xl font-bold text-blue-800">{slug}</h1>
+              <Link href={`/jobs/${job.slug}`} className="block">
+                <h1 className="text-xl font-bold text-blue-800">{title}</h1>
               </Link>
             )}
             <p className="mb-3 text-sm font-semibold ">

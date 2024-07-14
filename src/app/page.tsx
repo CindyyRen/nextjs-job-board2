@@ -1,23 +1,18 @@
 import JobFilterSidebar from "@/components/JobFilterSidebar";
-import JobListItem from "@/components/JobListItem";
-import JobResults from "@/components/JobResults";
-import H1 from "@/components/ui/h1";
 import { JobFilterValues } from "@/lib/validation";
 import { Metadata } from "next";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import { Job } from "@prisma/client";
-import JobPageRight from "@/components/JobPageRight";
 import {
-  SheetTrigger,
-  SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
+  SheetContent,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Sheet } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import JobFilterSidebarV from "@/components/JobFilterSidebarV";
+import MainContent from "@/components/MainContent";
 
 interface PageProps {
   searchParams: {
@@ -25,10 +20,10 @@ interface PageProps {
     type?: string;
     location?: string;
     remote?: string;
-    slug?: string;
+    page?: string;
   };
 }
-function getTitle({ q, type, location, remote }: JobFilterValues) {
+function getTitle({ q, type, location, remote, page }: JobFilterValues) {
   const titlePrefix = q
     ? `${q} jobs`
     : type
@@ -121,20 +116,7 @@ export default async function Home({
         </SheetContent>
       </Sheet>
 
-      <div className="mt-0 grid grid-cols-1 gap-1 md:grid-cols-5">
-        {/* <section className="col-span-1 max-h-screen overflow-y-auto scrollbar-thin !scrollbar-thumb-gray-200 md:col-span-2"> */}
-        <section
-          className="col-span-1 max-h-screen overflow-y-auto scrollbar-none
-                    md:col-span-2
-                    md:scrollbar-thin md:scrollbar-thumb-gray-200"
-        >
-          <JobResults jobs={jobs} />
-        </section>
-        <div className=" md:col-span-3 md:block md:rounded-lg md:border md:p-5 md:hover:bg-muted/20">
-          {/* Content for the remaining 3/5 of the screen on larger screens */}
-          <JobPageRight jobs={jobs} />
-        </div>
-      </div>
+      {jobs && <MainContent jobs={jobs} page={page ? parseInt(page) : undefined}/>}
     </main>
   );
 }

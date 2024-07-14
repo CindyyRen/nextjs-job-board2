@@ -12,6 +12,7 @@ import clsx from "clsx";
 
 interface JobListItemProps {
   job: Job;
+  setCurPage: (slug: string) => void;
 }
 
 export default function JobListItem({
@@ -26,11 +27,11 @@ export default function JobListItem({
     createdAt,
     slug,
   },
+  setCurPage,
 }: JobListItemProps) {
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
   newSearchParams.set("slug", slug);
-  const router = useRouter();
   const currentSlug = searchParams.get("slug");
 
   const isActive = currentSlug === slug;
@@ -90,7 +91,10 @@ export default function JobListItem({
     <>
       <div
         className="hidden md:block"
-        onClick={() => router.push(`/?${newSearchParams.toString()}`)}
+        onClick={(e) => {
+          e.preventDefault(); // if needed
+          setCurPage(slug);
+        }}
       >
         {jobContent}
       </div>
