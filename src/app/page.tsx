@@ -23,7 +23,7 @@ interface PageProps {
     page?: string;
   };
 }
-function getTitle({ q, type, location, remote, page }: JobFilterValues) {
+function getTitle({ q, type, location, remote }: JobFilterValues) {
   const titlePrefix = q
     ? `${q} jobs`
     : type
@@ -51,7 +51,7 @@ export function generateMetadata({
 }
 
 export default async function Home({
-  searchParams: { q, type, location, remote, slug },
+  searchParams: { q, type, location, remote, page },
 }: PageProps) {
   const filterValues: JobFilterValues = {
     q,
@@ -59,6 +59,9 @@ export default async function Home({
     location,
     remote: remote === "true",
   };
+  const jobsPerPage = 6;
+ const currentPage = page ? parseInt(page) : undefined;
+  const skip = currentPage && (currentPage - 1) * jobsPerPage;
   const searchString = q
     ?.split(" ")
     .filter((word) => word.length > 0)
@@ -86,11 +89,15 @@ export default async function Home({
     ],
   };
 
-  const jobs = await prisma.job.findMany({
+  const jobsPromise = prisma.job.findMany({
     where,
     orderBy: { createdAt: "desc" },
+    take: jobsPerPage,
+    skip,
   });
+  const countPromise = prisma.job.count({ where });
 
+  const [jobs, totalResults] = await Promise.all([jobsPromise, countPromise]);
   return (
     <main className="m-auto my-0 max-w-full px-4 sm:max-w-6xl sm:px-3 lg:px-4">
       {/* <div className="mb-10 space-y-5 text-center">
@@ -116,7 +123,14 @@ export default async function Home({
         </SheetContent>
       </Sheet>
 
-      {jobs && <MainContent jobs={jobs} page={page ? parseInt(page) : undefined}/>}
+      {jobs && (
+        <MainContent
+          jobs={jobs}
+          filterValues={filterValues}
+          totalPages={Math.ceil(totalResults / jobsPerPage)}
+          page={page ? parseInt(page) : undefined}
+        />
+      )}
     </main>
   );
 }
