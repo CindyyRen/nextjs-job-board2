@@ -12,7 +12,7 @@ import clsx from "clsx";
 
 interface JobListItemProps {
   job: Job;
-  setCurPage: (slug: string) => void;
+  setCurPage?: (slug: string) => void;
 }
 
 export default function JobListItem({
@@ -93,7 +93,9 @@ export default function JobListItem({
         className="hidden md:block"
         onClick={(e) => {
           e.preventDefault(); // if needed
-          setCurPage(slug);
+          if (setCurPage) {
+            setCurPage(slug);
+          }
         }}
       >
         {jobContent}

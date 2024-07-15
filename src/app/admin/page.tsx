@@ -22,7 +22,7 @@ export default async function AdminPage() {
               href={`/admin/jobs/${job.slug}`}
               className="block"
             >
-              <JobListItem job={job} />
+              <JobListItem job={job}/>
             </Link>
           ))
         ) : (
