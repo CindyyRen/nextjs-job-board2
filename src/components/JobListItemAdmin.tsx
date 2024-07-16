@@ -4,16 +4,13 @@ import { formatMoney, relativeDate } from "@/lib/utils";
 import { Job } from "@prisma/client";
 import { Banknote, Briefcase, Clock, Globe2, MapPin } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Badge from "./Badge";
-import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 interface JobListItemProps {
   job: Job;
-  curPage?: string;
-  setCurPage?: (slug: string) => void;
+
 }
 
 export default function JobListItem({
@@ -28,21 +25,19 @@ export default function JobListItem({
     createdAt,
     slug,
   },
-  curPage,
-  setCurPage,
 }: JobListItemProps) {
   // const searchParams = useSearchParams();
   // const newSearchParams = new URLSearchParams(searchParams);
   // newSearchParams.set("slug", slug);
   // const currentSlug = searchParams.get("slug");
 
-  const isActive = curPage === slug;
+
   // console.log("companyLogoUrl", companyLogoUrl);
   const jobContent = (
     <article
       className={clsx(
         "flex gap-3 rounded-lg border p-5 hover:bg-muted/60",
-        isActive && "bg-gray-100",
+
       )}
     >
       <div className="hidden md:flex md:flex-col md:gap-3">
@@ -91,18 +86,7 @@ export default function JobListItem({
 
   return (
     <>
-      <div
-        className="hidden md:block"
-        onClick={(e) => {
-          e.preventDefault(); // if needed
-          if (setCurPage) {
-            setCurPage(slug);
-          }
-        }}
-      >
-        {jobContent}
-      </div>
-      <div className="md:hidden">
+      <div>
         <Link href={`/jobs/${slug}`} className="block">
           {jobContent}
         </Link>

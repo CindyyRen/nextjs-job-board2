@@ -1,13 +1,15 @@
-import JobListItem from "@/components/JobListItem";
 import H1 from "@/components/ui/h1";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import JobListItemAdmin from "@/components/JobListItemAdmin";
+import JobListItem from "@/components/JobListItem";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
   const unapprovedJobs = await prisma.job.findMany({
+    // where: { approved: false },
     where: { approved: false },
   });
   return (
@@ -21,8 +23,11 @@ export default async function AdminPage() {
               key={job.id}
               href={`/admin/jobs/${job.slug}`}
               className="block"
+              passHref
+              legacyBehavior
             >
-              <JobListItem job={job}/>
+              <JobListItemAdmin job={job} />
+              {/* <JobListItem job={job} /> */}
             </Link>
           ))
         ) : (

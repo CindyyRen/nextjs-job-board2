@@ -37,7 +37,7 @@ const MainContent = ({
                 md:col-span-2
                 md:scrollbar-thin md:scrollbar-thumb-gray-200"
       >
-        <JobResults jobs={jobs} setCurPage={setCurPage} />
+        <JobResults jobs={jobs} curPage={curPage} setCurPage={setCurPage} />
         <Pagination
           filterValues={filterValues}
           currentPage={page}
