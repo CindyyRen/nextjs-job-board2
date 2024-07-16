@@ -15,8 +15,8 @@ interface JobPageProps {
 }
 
 export default function JobPageRight({ job }: JobPageProps) {
-
-  if (!job) {return <div>Job not found</div>;
+  if (!job) {
+    return <div>Job not found</div>;
   }
 
   const {
@@ -34,11 +34,13 @@ export default function JobPageRight({ job }: JobPageProps) {
   return (
     <section className="relative">
       <div className="sticky top-[180px] flex justify-end">
-        <Button asChild className="bg-orange-500 hover:bg-orange-400">
-          <a href={new URL(applicationUrl!).origin} className="w-40 md:w-fit">
-            Apply now
-          </a>
-        </Button>
+        {applicationUrl && (
+          <Button asChild className="bg-orange-500 hover:bg-orange-400">
+            <a href={new URL(applicationUrl!).origin} className="w-40 md:w-fit">
+              Apply now
+            </a>
+          </Button>
+        )}
       </div>
       <div className="flex items-center gap-3">
         {companyLogoUrl && (
