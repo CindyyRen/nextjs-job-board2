@@ -41,13 +41,17 @@ const SigninButton = () => {
             <DropdownMenuContent className="w-60" align="end">
               <DropdownMenuItem>{`${session.user.email}`}</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <Link href="/admin">
-                {userRole == "JOBSEEKER" ? (
+
+              {userRole == "JOBSEEKER" ? (
+                <Link href="/admin">
                   <DropdownMenuItem>Admin</DropdownMenuItem>
-                ) : (
+                </Link>
+              ) : (
+                <Link href="/">
                   <DropdownMenuItem>Profile</DropdownMenuItem>
-                )}
-              </Link>
+                </Link>
+              )}
+
               <Link href="/settings">
                 <DropdownMenuItem>Settings</DropdownMenuItem>
               </Link>
