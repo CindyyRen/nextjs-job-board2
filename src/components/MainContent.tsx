@@ -44,7 +44,7 @@ const MainContent = ({
           totalPages={totalPages}
         />
       </section>
-      <div className=" md:col-span-3 md:block md:rounded-lg md:border md:p-5 md:hover:bg-muted/20">
+      <div className="hidden md:col-span-3 md:block md:rounded-lg md:border md:p-5 md:hover:bg-muted/20">
         {/* Content for the remaining 3/5 of the screen on larger screens */}
         {curJob && <JobPageRight job={curJob} />}
       </div>
