@@ -10,7 +10,6 @@ import clsx from "clsx";
 
 interface JobListItemProps {
   job: Job;
-
 }
 
 export default function JobListItem({
@@ -31,14 +30,10 @@ export default function JobListItem({
   // newSearchParams.set("slug", slug);
   // const currentSlug = searchParams.get("slug");
 
-
   // console.log("companyLogoUrl", companyLogoUrl);
   const jobContent = (
     <article
-      className={clsx(
-        "flex gap-3 rounded-lg border p-5 hover:bg-muted/60",
-
-      )}
+      className={clsx("flex gap-3 rounded-lg border p-5 hover:bg-muted/60")}
     >
       <div className="hidden md:flex md:flex-col md:gap-3">
         {
@@ -87,7 +82,7 @@ export default function JobListItem({
   return (
     <>
       <div>
-        <Link href={`/jobs/${slug}`} className="block">
+        <Link href={`/admin/jobs/${slug}`} className="block">
           {jobContent}
         </Link>
       </div>
